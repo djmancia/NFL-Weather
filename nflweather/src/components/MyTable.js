@@ -32,6 +32,7 @@ export default function MyTable() {
       const teams = [];
 
       for (const date in resp) {
+        console.log(resp[date]);
         for (const game in resp[date].games) {
           console.log(
             `on ${date} these guys play`,
