@@ -5,8 +5,9 @@ export async function getSchedule(year, week) {
     const data = await axios.get(
       `https://www.espn.com/nfl/schedule/_/year/${year}/week/${week}?xhr=1`
     );
-    console.log(data.data.content.schedule);
+    return data.data.content.schedule;
   } catch (error) {
     console.error(error);
+    return error;
   }
 }
