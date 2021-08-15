@@ -1,9 +1,8 @@
 let possibleWeeks = [
-  { name: "Hall of Fame Week", seasonType: 1, value: 0 },
-  { name: "Preseason Week 1", seasonType: 1, value: 1 },
-  { name: "Preseason Week 2", seasonType: 1, value: 2 },
-  { name: "Preseason Week 3", seasonType: 1, value: 3 },
-  { name: "Preseason Week 4", seasonType: 1, value: 4 },
+  { name: "Hall of Fame Week", seasonType: 1, value: 1 },
+  { name: "Preseason Week 1", seasonType: 1, value: 2 },
+  { name: "Preseason Week 2", seasonType: 1, value: 3 },
+  { name: "Preseason Week 3", seasonType: 1, value: 4 },
   { name: "Week 1", seasonType: 2, value: 1 },
   { name: "Week 2", seasonType: 2, value: 2 },
   { name: "Week 3", seasonType: 2, value: 3 },

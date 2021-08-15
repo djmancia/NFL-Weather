@@ -15,44 +15,39 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MyTable() {
+export default function MyTable(props) {
   const classes = useStyles();
   const [games, setGames] = useState([]);
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      // You can await here
-      const week = 4;
-      const year = 2021;
-      const seasonType = 1;
+      const week = props.weekValue;
+      const year = props.year;
+      const seasonType = props.seasonType;
       const resp = await getSchedule(year, week, seasonType);
+      console.log(resp);
       // holds list of games
       const list = [];
       // holds teams [away, home]
       const teams = [];
 
       for (const date in resp) {
-        console.log(resp[date]);
+        dates.push(date);
         for (const game in resp[date].games) {
-          console.log(
-            `on ${date} these guys play`,
-            resp[date].games[game].name
-          );
           list.push(resp[date].games[game].name);
         }
       }
-      console.log(list);
       for (const game in list) {
         teams.push(list[game].split(" at "));
       }
-      console.log(teams);
       setGames(list);
     }
     fetchData();
-  }, []);
+  }, [props.weekValue, props.year, props.seasonType]);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} key={props.weekValue}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
