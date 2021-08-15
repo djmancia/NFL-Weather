@@ -34,10 +34,11 @@ export default function SimpleSelect(props) {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "right" }}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">Year</InputLabel>
         <Select
+          style={{ textAlign: "center" }}
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={props.year}
@@ -55,6 +56,7 @@ export default function SimpleSelect(props) {
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-filled-label">Week</InputLabel>
         <Select
+          style={{ textAlign: "center" }}
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={props.weekName}
