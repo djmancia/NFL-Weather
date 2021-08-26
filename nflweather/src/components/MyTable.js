@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getSchedule } from "../schedules";
+import { getWeather } from "../weather"
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,10 +10,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Tab } from "@material-ui/core";
+import { weathercell} from './weatherCell'
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    maxWidth: '80%',
   },
 });
 
@@ -20,7 +22,19 @@ export default function MyTable(props) {
   const classes = useStyles();
   const [teams, setTeams] = useState([]);
   const [logos, setLogos] = useState([]);
-  const [locations, setLocations] = useState([])
+  const [locations, setLocations] = useState([]);
+  const [data, setData] = useState();
+
+  const fetchWeather = async(city) => {
+    const resp = await getWeather(city)
+    let returnObject = {temp: resp.data.current.temp_f, windDirection: resp.data.current.wind_dir, wind_mph:resp.data.current.wind_mph }
+    const string = `${returnObject.temp}, ${returnObject.windDirection}, ${returnObject.wind_mph}`
+    setData(resp)
+    return ( data &&
+      <weatherCell string={string}/>
+  
+      ); 
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -66,6 +80,10 @@ export default function MyTable(props) {
     fetchData();
   }, [props.weekValue, props.year]);
 
+
+
+
+
   const formatDate = (date) =>{
     
     let formatted = new Date(date)
@@ -81,6 +99,7 @@ export default function MyTable(props) {
             <TableCell>Away</TableCell>
             <TableCell>Home</TableCell>
             <TableCell>Location</TableCell>
+            <TableCell>Current Conditions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -90,14 +109,17 @@ export default function MyTable(props) {
                {formatDate(row[1])}
               </TableCell>
               <TableCell component="th" scope="row">
-              {<img width='25' height ='25'src={logos[index][0]}></img>} {typeof row === 'string' ? row :row[0][0]} 
+              {<img width='25' height ='25'src={logos[index][1]}></img>} {typeof row === 'string' ? row :row[0][0]} 
               </TableCell>
               <TableCell>
-              {<img width='25' height ='25'src={logos[index][1]}></img>}{typeof row === 'string' ? row :row[0][1]} 
+              {<img width='25' height ='25'src={logos[index][0]}></img>}{typeof row === 'string' ? row :row[0][1]} 
               </TableCell>
              <TableCell>
                {`${locations[index].name} in ${locations[index].city} ${locations[index].state}`}
              </TableCell>
+             
+               {/* {fetchWeather(locations[index].city) } */}
+            
             </TableRow>
           ))}
         </TableBody>
