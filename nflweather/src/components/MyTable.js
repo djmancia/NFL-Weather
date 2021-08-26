@@ -28,7 +28,7 @@ export default function MyTable(props) {
       const year = props.year;
       const seasonType = props.seasonType;
       const resp = await getSchedule(year, week, seasonType);
-      console.log(resp);
+      
       
     
       // holds list of games
@@ -38,7 +38,7 @@ export default function MyTable(props) {
       let tempLogos = []
       const tempDate = []
       let tempLocationArray=[]
-      let tempLocationObj= {}
+    
 
       for (const date in resp) {
         tempDate.push([date,resp[date].games.length])
@@ -67,7 +67,7 @@ export default function MyTable(props) {
   }, [props.weekValue, props.year]);
 
   const formatDate = (date) =>{
-    console.log();
+    
     let formatted = new Date(date)
     return formatted.toLocaleString()
   }
@@ -80,21 +80,24 @@ export default function MyTable(props) {
           <TableCell>Date</TableCell>
             <TableCell>Away</TableCell>
             <TableCell>Home</TableCell>
+            <TableCell>Location</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {teams.map((row, index) => (
             <TableRow key={index}>
              <TableCell>
-               {console.log(locations)} {formatDate(row[1])}
+               {formatDate(row[1])}
               </TableCell>
               <TableCell component="th" scope="row">
-              {<img width='25' height ='25'src={logos[index][1]}></img>} {typeof row === 'string' ? row :row[0][0]} 
+              {<img width='25' height ='25'src={logos[index][0]}></img>} {typeof row === 'string' ? row :row[0][0]} 
               </TableCell>
               <TableCell>
-              {<img width='25' height ='25'src={logos[index][0]}></img>}{typeof row === 'string' ? row :row[0][1]} 
+              {<img width='25' height ='25'src={logos[index][1]}></img>}{typeof row === 'string' ? row :row[0][1]} 
               </TableCell>
-             
+             <TableCell>
+               {`${locations[index].name} in ${locations[index].city} ${locations[index].state}`}
+             </TableCell>
             </TableRow>
           ))}
         </TableBody>
