@@ -7,12 +7,14 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 
 
+// TO DO: FIX WEATHER CELLS
+
 export default function weatherCell(props) {
     
     return(
         <TableCell>
             {props.string}
-              </TableCell>
+        </TableCell>
     )
 }
 
